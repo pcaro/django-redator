@@ -1,8 +1,8 @@
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.utils import simplejson as json
+from django.conf import settings
 
 OPTIONS = getattr(settings, 'REDACTOR_OPTIONS', {'focus': True})
 
@@ -12,9 +12,9 @@ def extend(dict1, dict2):
 class JQueryEditor(widgets.Textarea):
 
     class Media:
-        js = ('redactor/redactor.js',)
+        js = ('editor/editor.js',)
         css = {
-            'all': ('redactor/css/redactor.css', ),
+            'all': ('editor/css/editor.css', ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -34,12 +34,13 @@ class JQueryEditor(widgets.Textarea):
         id_ = final_attrs.get('id')
 
         options = json.dumps(extend({
-            'upload': reverse('redactor_upload', kwargs={'upload_to': self.upload_to}),
+            'image_upload': reverse('redactor_upload_image', kwargs={'upload_to': self.upload_to}),
+            'file_upload': reverse('redactor_upload_file', kwargs={'upload_to': self.upload_to}),
         }, self.options))
 
         return mark_safe(input_ + (
             '<script type="text/javascript">' +
             'jQuery(document).ready(function(){' +
-            '$("#%s").redactor(%s);' % (id_, options) +
+            '$("#%s").editor(%s);' % (id_, options) +
             '});</script>'
         ))
