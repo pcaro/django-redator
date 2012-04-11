@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.db.models import TextField
-from redactor.widgets import JQueryEditor
+
+from redactor.widgets import RedactorEditor
 
 
 class RedactorModelAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        TextField: {'widget': JQueryEditor},
+        TextField: {'widget': RedactorEditor},
     }
 
     class Media:
-        js = ('https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js', )
-
+        js = ('redactor/jquery-1.7.min.js',)
+        css = {'all': ('redactor/css/django_admin.css',)}
