@@ -1,4 +1,6 @@
-var RTOOLBAR = 
+if (typeof RTOOLBAR == 'undefined') var RTOOLBAR = {};
+
+RTOOLBAR['default'] = 
 {
 	html:
 	{
@@ -66,8 +68,8 @@ var RTOOLBAR =
 	bold:
 	{ 
 		title: RLANG.bold,
-		exec: 'bold',
-	 	param: null	
+		exec: 'Bold',
+	 	param: false	
 	}, 
 	italic:
 	{
