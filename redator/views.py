@@ -7,10 +7,10 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from redactor.forms import ImageForm
+from .forms import ImageForm
 
 
-UPLOAD_PATH = getattr(settings, 'REDACTOR_UPLOAD', 'redactor/')
+UPLOAD_PATH = getattr(settings, 'REDATOR_UPLOAD_PATH', 'redator/')
 
 
 @csrf_exempt

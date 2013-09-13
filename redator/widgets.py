@@ -1,11 +1,12 @@
+import json
+
+from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse
-from django.utils import simplejson as json
-from django.conf import settings
 
 
-GLOBAL_OPTIONS = getattr(settings, 'REDACTOR_OPTIONS', {})
+PROJECT_OPTIONS = getattr(settings, 'REDATOR_REDACTOR_OPTIONS', {})
 
 INIT_JS = """<script type="text/javascript">
   jQuery(document).ready(function(){
@@ -24,11 +25,11 @@ class RedactorEditor(widgets.Textarea):
     def __init__(self, *args, **kwargs):
         super(RedactorEditor, self).__init__(*args, **kwargs)
         self.upload_to = kwargs.pop('upload_to', '')
-        self.custom_options = kwargs.pop('redactor_options', {})
+        self.widget_options = kwargs.pop('redactor_options', {})
 
     def get_options(self):
-        options = GLOBAL_OPTIONS.copy()
-        options.update(self.custom_options)
+        options = PRJECT_OPTIONS.copy()
+        options.update(self.widget_options)
         options.update({
             'imageUpload': reverse('redactor_upload_image', kwargs={'upload_to': self.upload_to}),
             'fileUpload': reverse('redactor_upload_file', kwargs={'upload_to': self.upload_to})
@@ -41,7 +42,3 @@ class RedactorEditor(widgets.Textarea):
         id_ = final_attrs.get('id')
         html += INIT_JS % (id_, self.get_options())
         return mark_safe(html)
-
-
-# For backward compatibility
-JQueryEditor = RedactorEditor
