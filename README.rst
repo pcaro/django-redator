@@ -12,6 +12,6 @@ Project page
 Translations
     https://www.transifex.net/projects/p/django-redator/
 
-.. 
-   _`Django Web Framework`: http://www.djangoproject.com
-   _`Redactor`: http://imperavi.com/redactor/
+
+.. _`Django Web Framework`: http://www.djangoproject.com
+.. _`Redactor`: http://imperavi.com/redactor/
