@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.db.models import TextField
+from django.db import models
 
 from .widgets import RedactorEditorAdmin
 
 
 class RedactorAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        TextField: {'widget': RedactorEditorAdmin(
+        models.TextField: {'widget': RedactorEditorAdmin(
             attrs={'rows': 40}
         )},
     }
