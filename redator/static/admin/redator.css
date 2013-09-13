@@ -1,4 +1,4 @@
-.redactor_box { float: left; width: 52em; }
+.redactor_box { float: left; }
 
 form .aligned .redactor_box p, form .aligned .redactor_box ul {
     margin: 0;
