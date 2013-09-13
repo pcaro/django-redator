@@ -41,4 +41,4 @@ class RedactorEditor(widgets.Textarea):
 
 class RedactorEditorAdmin(RedactorEditor):
     class Media:
-        css = {'all': ('redactor/css/redactor.css',)}
+        css = {'all': ('admin/redator.css',)}
