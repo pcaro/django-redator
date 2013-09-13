@@ -1,13 +1,10 @@
 from django.contrib import admin
 from django.db.models import TextField
 
-from .widgets import RedactorEditor
+from .widgets import RedactorEditorAdmin
 
 
-class RedactorModelAdmin(admin.ModelAdmin):
+class RedactorAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        TextField: {'widget': RedactorEditor},
+        TextField: {'widget': RedactorEditorAdmin},
     }
-
-    class Media:
-        css = {'all': ('admin/redator.css',)}

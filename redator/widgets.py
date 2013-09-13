@@ -17,11 +17,7 @@ INIT_JS = """<script type="text/javascript">
 
 
 class RedactorEditor(widgets.Textarea):
-
-    class Media:
-        js = ('redactor/redactor.min.js',)
-        css = {'all': ('redactor/css/redactor.css',)}
-
+   
     def __init__(self, *args, **kwargs):
         super(RedactorEditor, self).__init__(*args, **kwargs)
         self.upload_to = kwargs.pop('upload_to', '')
@@ -42,3 +38,17 @@ class RedactorEditor(widgets.Textarea):
         id_ = final_attrs.get('id')
         html += INIT_JS % (id_, self.get_options())
         return mark_safe(html)
+
+    def _media(self):
+        return forms.Media(
+            js=('redactor/redactor.min.js',)
+            css={'all': ('redactor/css/redactor.css',)}
+        )
+    media = property(_media)
+
+
+class RedactorEditorAdmin(RedactorEditor):
+    def _media(self):
+        media = super(RedactorEditorAdmin, self)._media()
+        media.add_css({'all': ('admin/redator.css',)})
+        return media
