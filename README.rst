@@ -6,6 +6,8 @@ Django Redator
 Framework`_ to help you integrate `Redactor`_, a beautiful and
 easy-to-use WYSIWYG HTML editor, into your projects.
 
+*Tested on Redactor 9.1.4*
+
 .. _`Django Web Framework`: http://www.djangoproject.com
 .. _`Redactor`: http://imperavi.com/redactor/
 
@@ -17,6 +19,15 @@ Redator is available on `Python Package Index (PyPI)`_ so you can
 easily install the latest stable version of it using *pip*::
 
   pip instal django-redator
+
+On your Django project you must add ``redator`` to your
+``INSTALLED_APPS`` and configure your ``urls.py``::
+
+    url(r'^_redator/', include('redator.urls', namespace='redactor', app_name='redator')),
+
+
+Forms
+-----
 
 Using it together your Django forms is easy as using a custom
 ``CharField`` widget::
@@ -33,10 +44,24 @@ Remember to render the media assets in your HTML template::
   {{ form.media }}
   {{ form }}
 
-You can find more information about Django forms at
-https://docs.djangoproject.com/en/dev/ref/forms/.
-
 .. _`Python Package Index (PyPI)`: http://pypi.python.org/
+
+
+Admin
+-----
+
+Django Redator also provides a widget to you use on ``ModelAdmin``. It
+just add some CSS rules to display it better on Admin::
+
+  from redator.widgets import RedactorEditorAdmin
+
+  class MyModelAdmin(admin.ModelAdmin):
+      formfield_overrides = {
+          TextField: {'widget': RedactorEditorAdmin},
+      }
+
+      class Media:
+          js = ('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',)
 
 
 Where is the Redactor files?
@@ -47,24 +72,3 @@ it into this application. You have to get it at
 http://imperavi.com/redactor/download/ and copy the directory
 containing the files ``redactor.min.js`` and ``redactor.css`` to some
 directory specified at your ``STATICFILES_DIRS`` setting.
-
-
-Using together ``django.contrib.admin``
----------------------------------------
-
-Redator provides a CSS to improve the display of Redactor in your
-*Django Admin*. Following is a example of how you can use it::
-
-  from redator.widgets import RedactorEditorAdmin
-
-  class MyModelAdmin(admin.ModelAdmin):
-      formfield_overrides = {
-          TextField: {'widget': RedactorEditorAdmin},
-      }
-
-Or you can simply inherit from ``redator.admin.RedactorAdmin`` as follow::
-
-  from redator.admin import RedactorAdmin
-
-  class MyModelAdmin(RedactorAdmin):
-      ...
