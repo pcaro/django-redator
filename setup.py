@@ -21,9 +21,9 @@ setup(
     name='django-redator',
     version=version,
     description=(
-        'Django Redator (sic) helps you integrate Redactor '
-        '<http://imperavi.com/redactor/> to your Django forms. Redactor '
-        'is a beautiful and easy-to-use WYSIWYG HTML editor.'
+        'Django Redator (sic) is a application for the Django Web Framework to '
+        'help you integrate Redactor <http://imperavi.com/redactor/>, a '
+        'beautiful and easy-to-use WYSIWYG HTML editor, into your projects.'
     ),
     long_description=read(os.path.join(os.path.dirname(__file__), 'README.rst')),
     keywords = 'django app wysiwyg editor redactor',
