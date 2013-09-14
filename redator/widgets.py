@@ -1,17 +1,11 @@
 import json
 
 from os.path import join
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.utils.safestring import mark_safe
 
-
-UPLOAD_PATH = getattr(settings, 'REDATOR_UPLOAD_PATH', 'redator/')
-DEFAULT_OPTIONS = getattr(settings, 'REDATOR_REDACTOR_OPTIONS', {
-    'wym': True,
-    'autoresize': False
-})
+from . import app_settings
 
 
 class RedactorEditor(widgets.Textarea):
@@ -27,21 +21,22 @@ class RedactorEditor(widgets.Textarea):
 
     def __init__(self, *args, **kwargs):
         super(RedactorEditor, self).__init__(*args, **kwargs)
-        self.upload_to = kwargs.pop('upload_to', UPLOAD_PATH)
+        self.upload_to = kwargs.pop('upload_to', app_settings.UPLOAD_TO)
         self.widget_options = kwargs.pop('redactor_options', {})
 
     def get_options(self):
-        options = DEFAULT_OPTIONS
+        options = app_settings.REDACTOR_OPTIONS
         options.update(self.widget_options)
         options.update({
+            'fileUpload': reverse(
+                'redator:upload-file',
+                kwargs={'upload_to': join(self.upload_to, 'files')}
+            ),
             'imageUpload': reverse(
                 'redator:upload-image',
                 kwargs={'upload_to': join(self.upload_to, 'images')}
             ),
-            'fileUpload': reverse(
-                'redator:upload-file',
-                kwargs={'upload_to': join(self.upload_to, 'files')}
-            )
+            'imageGetJson': reverse('redator:images-json'),
         })
         return json.dumps(options)
 
