@@ -1,9 +1,13 @@
 from django import forms
 
-
-class ImageForm(forms.Form):
-    file = forms.ImageField()
+from . import models
 
 
-class FileForm(forms.Form):
-    file = forms.FileField()
+class FileForm(forms.ModelForm):
+    class Meta:
+        model = models.File
+
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = models.Image
