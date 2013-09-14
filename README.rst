@@ -23,7 +23,11 @@ easily install the latest stable version of it using *pip*::
 On your Django project you must add ``redator`` to your
 ``INSTALLED_APPS`` and configure your ``urls.py``::
 
-    url(r'^_redator/', include('redator.urls', namespace='redactor', app_name='redator')),
+  url(r'^_redator/', include('redator.urls', namespace='redactor', app_name='redator')),
+
+You also have to create the database tables::
+
+  python manage.py syncdb --migrate
 
 
 Forms
@@ -65,6 +69,32 @@ just add some CSS rules to display it better on Admin::
       class Media:
           js = ('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',)
 
+
+Settings
+--------
+
+You might want to change the settings of app and Redactor editor and
+there is two ways to do that.
+
+Changing the defaults, globally, on your ``settings.py``::
+
+  REDATOR_UPLOAD_TO = 'redator/%Y-%m/'
+  REDATOR_REDACTOR_OPTIONS = {
+    'wym': True,
+    'autoresize': False
+  }
+
+Or changing per widget, that will override the global settings::
+
+  class PostForm(forms.Form)
+        body = forms.CharField(widget=RedactorEditor(
+            upload_to='post/%Y-%m/',
+            redactor_options={
+                'wym': False,
+            }
+        ))
+        ...
+  
 
 Where is the Redactor files?
 ----------------------------
