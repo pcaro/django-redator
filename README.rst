@@ -31,8 +31,10 @@ You can change the default settings by editing yours project ``settings.py``::
 
   REDATOR_UPLOAD_TO = 'redator/%Y-%m/'
   REDATOR_REDACTOR_OPTIONS = {
+    'autoresize': False,
+    'cleanup': True,
+    'lang': 'en',
     'wym': True,
-    'autoresize': False
   }
 
 Redactor
@@ -66,6 +68,7 @@ Using it together your Django forms is easy as using a custom
             # upload_to='post/%Y-%m/',
             # redactor_options={
             #     'wym': False,
+            #     'autoresize': True,
             # }
         ))
 
