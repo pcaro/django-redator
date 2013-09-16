@@ -27,7 +27,7 @@ You also have to create the database tables::
 
   python manage.py syncdb --migrate
   
-You can change the default settings by editing yours project ``settings.py``:
+You can change the default settings by editing yours project ``settings.py``::
 
   REDATOR_UPLOAD_TO = 'redator/%Y-%m/'
   REDATOR_REDACTOR_OPTIONS = {
@@ -60,10 +60,10 @@ Using it together your Django forms is easy as using a custom
   class PostForm(forms.Form):
       title = forms.CharField()
       body = forms.CharField(widget=RedactorEditor(
-            #upload_to='post/%Y-%m/',
-            #redactor_options={
-            #    'wym': False,
-            #}
+            # upload_to='post/%Y-%m/',
+            # redactor_options={
+            #     'wym': False,
+            # }
         ))
 
 Remember to render the media assets in your HTML template::
