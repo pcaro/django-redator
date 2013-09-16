@@ -1,6 +1,7 @@
 import json
 
 from os.path import join
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
 from django.utils.safestring import mark_safe
@@ -9,11 +10,10 @@ from . import app_settings
 
 
 class RedactorEditor(widgets.Textarea):
-    init_js = (
-        '<script type="text/javascript">'
-        'jQuery(document).ready(function(){jQuery("#%s").redactor(%s);});'
-        '</script>'
-    )
+    LANG_JS = '<script src="%sredactor/langs/%s.js"></script>'
+    INIT_JS = ('<script type="text/javascript">jQuery(document).ready('
+               'function(){jQuery("#%s").redactor(%s)}'
+               ');</script>')
 
     class Media:
         js = ('redactor/redactor.min.js',)
@@ -24,7 +24,8 @@ class RedactorEditor(widgets.Textarea):
         self.upload_to = kwargs.pop('upload_to', app_settings.UPLOAD_TO)
         self.widget_options = kwargs.pop('redactor_options', {})
 
-    def get_options(self):
+    @property
+    def options(self):
         options = app_settings.REDACTOR_OPTIONS
         options.update(self.widget_options)
         options.update({
@@ -38,13 +39,25 @@ class RedactorEditor(widgets.Textarea):
             ),
             'imageGetJson': reverse('redator:images-json'),
         })
-        return json.dumps(options)
+        return options
+
+    @property
+    def language(self):
+        return self.options.get('lang', 'en')
+
+    def build_lang_js(self):
+        if self.language != 'en':
+            return self.LANG_JS % (settings.STATIC_URL, self.language)
+        return ''
+
+    def build_init_js(self, html_id):
+        options = json.dumps(self.options)
+        return self.INIT_JS % (html_id, options)
 
     def render(self, name, value, attrs=None):
         html = super(RedactorEditor, self).render(name, value, attrs)
-        final_attrs = self.build_attrs(attrs)
-        id_ = final_attrs.get('id')
-        html += self.init_js % (id_, self.get_options())
+        html_id = self.build_attrs(attrs).get('id')
+        html += self.build_lang_js() + self.build_init_js(html_id)
         return mark_safe(html)
 
 
