@@ -44,6 +44,9 @@ http://imperavi.com/redactor/download/ and copy the directory
 containing the files ``redactor.min.js`` and ``redactor.css`` to some
 directory specified at your ``STATICFILES_DIRS`` setting.
 
+(Make sure  you are able to access Redactor files on URL
+``{{ STATIC_URL }}redactor/``.)
+
 
 How-To
 ======
@@ -115,6 +118,6 @@ Redactor
 --------
 
 Redactor itself is created by `Imperavi`_.
-You can read about it's licensing at http://imperavi.com/redactor/
+You can read about it's licensing at http://imperavi.com/redactor/.
 
 .. _`Imperavi`: hhttp://imperavi.com/
