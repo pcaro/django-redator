@@ -6,8 +6,6 @@ Django Redator
 Framework`_ to help you integrate `Redactor`_, a beautiful and
 easy-to-use WYSIWYG HTML editor, into your projects.
 
-*Tested on Redactor 9.1.4*
-
 .. _`Django Web Framework`: http://www.djangoproject.com
 .. _`Redactor`: http://imperavi.com/redactor/
 
@@ -28,7 +26,27 @@ On your Django project you must add ``redator`` to your
 You also have to create the database tables::
 
   python manage.py syncdb --migrate
+  
+You can change the default settings by editing yours project ``settings.py``:
 
+  REDATOR_UPLOAD_TO = 'redator/%Y-%m/'
+  REDATOR_REDACTOR_OPTIONS = {
+    'wym': True,
+    'autoresize': False
+  }
+
+Redactor
+--------
+
+Unfortunately Redactor is not a Software Libre, so we could not pack
+it into this application. You have to get it at
+http://imperavi.com/redactor/download/ and copy the directory
+containing the files ``redactor.min.js`` and ``redactor.css`` to some
+directory specified at your ``STATICFILES_DIRS`` setting.
+
+
+How-To
+======
 
 Forms
 -----
@@ -41,7 +59,12 @@ Using it together your Django forms is easy as using a custom
 
   class PostForm(forms.Form):
       title = forms.CharField()
-      body = forms.CharField(widget=RedactorEditor)
+      body = forms.CharField(widget=RedactorEditor(
+            #upload_to='post/%Y-%m/',
+            #redactor_options={
+            #    'wym': False,
+            #}
+        ))
 
 Remember to render the media assets in your HTML template::
 
@@ -70,42 +93,6 @@ just add some CSS rules to display it better on Admin::
           js = ('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',)
 
 
-Settings
---------
-
-You might want to change the settings of app and Redactor editor and
-there is two ways to do that.
-
-Changing the defaults, globally, on your ``settings.py``::
-
-  REDATOR_UPLOAD_TO = 'redator/%Y-%m/'
-  REDATOR_REDACTOR_OPTIONS = {
-    'wym': True,
-    'autoresize': False
-  }
-
-Or changing per widget, that will override the global settings::
-
-  class PostForm(forms.Form)
-        body = forms.CharField(widget=RedactorEditor(
-            upload_to='post/%Y-%m/',
-            redactor_options={
-                'wym': False,
-            }
-        ))
-        ...
-  
-
-Where is the Redactor files?
-----------------------------
-
-Unfortunately Redactor is not a Software Libre, so we could not pack
-it into this application. You have to get it at
-http://imperavi.com/redactor/download/ and copy the directory
-containing the files ``redactor.min.js`` and ``redactor.css`` to some
-directory specified at your ``STATICFILES_DIRS`` setting.
-
-
 License
 =======
 
@@ -119,7 +106,9 @@ Django Redator is Software Libre; you can redistribute it and/or modify
 it under the terms of the BSD (3-clause) License.
 
 You should have received a copy of the BSD License along with this
-program; see the file LICENSE.
+program; see the file `LICENSE`_.
+
+.. _`LICENSE`: https://bitbucket.org/semente/django-redator/raw/master/LICENSE
 
 
 Redactor
