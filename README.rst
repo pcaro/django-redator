@@ -112,13 +112,14 @@ License
 Django Redator
 --------------
 
-Copyright (c) 2012-, Guilherme Gondim
-Copyright (c) 2010-2012 Vladimir Sidorenko
+| Copyright (c) 2012-, Guilherme Gondim
+| Copyright (c) 2010-2012 Vladimir Sidorenko
 
 Django Redator is Software Libre; you can redistribute it and/or modify
-it under the terms of the BSD (3-clause) License. You should have
-received a copy of the BSD License along with this program; see the
-file LICENSE.
+it under the terms of the BSD (3-clause) License.
+
+You should have received a copy of the BSD License along with this
+program; see the file LICENSE.
 
 
 Redactor
