@@ -1,6 +1,7 @@
 from os import path
 
 from django.db import models
+from django.utils import dateformat
 
 from . import app_settings
 
@@ -21,7 +22,7 @@ class Upload(models.Model):
 
     @property
     def folder(self):
-        return self.date.strftime('%B, %Y')
+        return dateformat.format(self.date, 'F, Y')
 
 
 class File(Upload):
