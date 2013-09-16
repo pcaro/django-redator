@@ -104,3 +104,27 @@ it into this application. You have to get it at
 http://imperavi.com/redactor/download/ and copy the directory
 containing the files ``redactor.min.js`` and ``redactor.css`` to some
 directory specified at your ``STATICFILES_DIRS`` setting.
+
+
+License
+=======
+
+Django Redator
+--------------
+
+Copyright (c) 2012-, Guilherme Gondim
+Copyright (c) 2010-2012 Vladimir Sidorenko
+
+Django Redator is Software Libre; you can redistribute it and/or modify
+it under the terms of the BSD (3-clause) License. You should have
+received a copy of the BSD License along with this program; see the
+file LICENSE.
+
+
+Redactor
+--------
+
+Redactor itself is created by `Imperavi`_.
+You can read about it's licensing at http://imperavi.com/redactor/
+
+.. _`Imperavi`: hhttp://imperavi.com/
