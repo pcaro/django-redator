@@ -98,6 +98,22 @@ just add some CSS rules to display it better on Admin::
           js = ('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',)
 
 
+Troubleshooting and Known Issues
+================================
+
+1. If the images you just uploaded are not showing on Redactor tab
+"Choose" from "Insert Image" modal, you might have to disable the
+cache of jQuery Ajax requests::
+
+  <script type="text/javascript">
+   $(document).ready(function() {
+     $.ajaxSetup({ cache: false });
+   });
+  </script>
+
+
+
+
 License
 =======
 
