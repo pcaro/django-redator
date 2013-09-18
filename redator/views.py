@@ -40,7 +40,7 @@ def upload(request, form_class):
 
 @require_GET
 @user_passes_test(lambda u: u.is_staff)
-@cache_page(10)
+@cache_page(5)
 def images_json(request):
     data = json.dumps([i.data for i in models.Image.objects.all()])
     return http.HttpResponse(data)
