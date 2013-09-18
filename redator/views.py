@@ -4,20 +4,19 @@ from PIL import Image, ImageOps
 from StringIO import StringIO
 from os import path
 
+from django import http
 from django.contrib.auth.decorators import user_passes_test
 from django.core.files.base import ContentFile
-from django.http import HttpResponse
-from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 
 from . import forms, models
 
 
-@csrf_exempt
 @require_POST
+@csrf_exempt
 @user_passes_test(lambda u: u.is_staff)
-def upload(request, upload_to, form_class=forms.ImageForm):
+def upload(request, form_class):
     form = form_class(request.POST, request.FILES)
     if form.is_valid():
         upload = form.save(commit=False)
@@ -30,15 +29,15 @@ def upload(request, upload_to, form_class=forms.ImageForm):
             thumb.save(buffer_, format='JPEG')
             upload.thumbnail.save(thumb_name, ContentFile(buffer_.getvalue()))
         upload = form.save()
-        return HttpResponse(json.dumps({
+        return http.HttpResponse(json.dumps({
             'filelink': upload.file.url,
             'filename': upload.title
         }))
-    return HttpResponse(status=403)
+    return http.HttpResponseForbidden()
 
 
 @require_GET
 @user_passes_test(lambda u: u.is_staff)
 def images_json(request):
     data = json.dumps([i.data for i in models.Image.objects.all()])
-    return HttpResponse(data)
+    return http.HttpResponse(data)

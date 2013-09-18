@@ -65,7 +65,6 @@ Using it together your Django forms is easy as using a custom
   class PostForm(forms.Form):
       title = forms.CharField()
       body = forms.CharField(widget=RedactorEditor(
-            # upload_to='post/%Y-%m/',
             # redactor_options={
             #     'wym': False,
             #     'autoresize': True,

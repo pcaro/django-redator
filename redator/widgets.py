@@ -1,6 +1,5 @@
 import json
 
-from os.path import join
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms import widgets
@@ -21,7 +20,6 @@ class RedactorEditor(widgets.Textarea):
 
     def __init__(self, *args, **kwargs):
         super(RedactorEditor, self).__init__(*args, **kwargs)
-        self.upload_to = kwargs.pop('upload_to', app_settings.UPLOAD_TO)
         self.widget_options = kwargs.pop('redactor_options', {})
 
     @property
@@ -29,14 +27,8 @@ class RedactorEditor(widgets.Textarea):
         options = app_settings.REDACTOR_OPTIONS
         options.update(self.widget_options)
         options.update({
-            'fileUpload': reverse(
-                'redator:upload-file',
-                kwargs={'upload_to': join(self.upload_to, 'files')}
-            ),
-            'imageUpload': reverse(
-                'redator:upload-image',
-                kwargs={'upload_to': join(self.upload_to, 'images')}
-            ),
+            'fileUpload': reverse('redator:upload-file'),
+            'imageUpload': reverse('redator:upload-image'),
             'imageGetJson': reverse('redator:images-json'),
         })
         return options
