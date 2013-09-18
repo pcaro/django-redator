@@ -12,7 +12,7 @@ class Upload(models.Model):
     class Meta:
         abstract = True
         ordering = ('-date',)
-    
+
     def __unicode__(self):
         return unicode(self.file.url)
 
@@ -31,7 +31,11 @@ class File(Upload):
 
 class Image(Upload):
     file = models.ImageField('image', upload_to=app_settings.UPLOAD_TO)
-    thumbnail = models.ImageField('thumbnail', upload_to=app_settings.UPLOAD_TO, blank=True)
+    thumbnail = models.ImageField(
+        'thumbnail',
+        upload_to=app_settings.UPLOAD_TO,
+        blank=True
+    )
 
     @property
     def data(self):
@@ -39,5 +43,5 @@ class Image(Upload):
             'thumb': self.thumbnail.url,
             'image': self.file.url,
             'title': self.title,
-            'folder': self.folder,            
+            'folder': self.folder,
         }
