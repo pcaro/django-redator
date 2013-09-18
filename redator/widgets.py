@@ -15,7 +15,10 @@ class RedactorEditor(widgets.Textarea):
                ');</script>')
 
     class Media:
-        js = ('redactor/redactor.min.js',)
+        if settings.DEBUG:
+            js = ('redactor/redactor.js',)
+        else:
+            js = ('redactor/redactor.min.js',)
         css = {'all': ('redactor/redactor.css',)}
 
     def __init__(self, *args, **kwargs):
