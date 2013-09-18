@@ -22,8 +22,8 @@ class RedactorEditor(widgets.Textarea):
         css = {'all': ('redactor/redactor.css',)}
 
     def __init__(self, *args, **kwargs):
-        super(RedactorEditor, self).__init__(*args, **kwargs)
         self.widget_options = kwargs.pop('redactor_options', {})
+        super(RedactorEditor, self).__init__(*args, **kwargs)
 
     @property
     def options(self):
