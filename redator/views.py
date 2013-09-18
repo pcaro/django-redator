@@ -7,6 +7,7 @@ from os import path
 from django import http
 from django.contrib.auth.decorators import user_passes_test
 from django.core.files.base import ContentFile
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 
@@ -38,6 +39,7 @@ def upload(request, form_class):
 
 @require_GET
 @user_passes_test(lambda u: u.is_staff)
+@cache_page(10)
 def images_json(request):
     data = json.dumps([i.data for i in models.Image.objects.all()])
     return http.HttpResponse(data)
