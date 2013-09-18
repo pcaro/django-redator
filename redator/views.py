@@ -23,9 +23,10 @@ def upload(request, form_class):
         upload = form.save(commit=False)
         if form_class == forms.ImageForm:
             image = Image.open(upload.file.file)
-            image_name = upload.file.name
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
             thumb = ImageOps.fit(image, (100, 100), Image.ANTIALIAS)
-            thumb_name = path.splitext(image_name)[0] + 'thumb.jpg'
+            thumb_name = path.splitext(upload.file.name)[0] + 'thumb.jpg'
             buffer_ = StringIO()
             thumb.save(buffer_, format='JPEG')
             upload.thumbnail.save(thumb_name, ContentFile(buffer_.getvalue()))
