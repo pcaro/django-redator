@@ -7,6 +7,6 @@ from .widgets import RedactorEditorAdmin
 class RedactorAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': RedactorEditorAdmin(
-            attrs={'rows': 40}
+            attrs={'rows': 24}
         )},
     }

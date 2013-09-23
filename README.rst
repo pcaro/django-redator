@@ -90,7 +90,7 @@ just add some CSS rules to display it better on Admin::
   class MyModelAdmin(admin.ModelAdmin):
       formfield_overrides = {
           TextField: {'widget': RedactorEditorAdmin(
-              attrs={'rows': 40}
+              attrs={'rows': 24}
           )},
       }
 
