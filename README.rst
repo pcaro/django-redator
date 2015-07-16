@@ -2,6 +2,8 @@
 Django Redator
 ==============
 
+*(django-redator is no longer supported!)*
+
 **Django Redator** (sic) is a application for the `Django Web
 Framework`_ to help you integrate `Redactor`_, a beautiful and
 easy-to-use WYSIWYG HTML editor, into your projects.
