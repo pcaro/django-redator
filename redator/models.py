@@ -7,7 +7,7 @@ from . import app_settings
 
 
 class Upload(models.Model):
-    date = models.DateTimeField(auto_now_add=True, disabled=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
