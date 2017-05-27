@@ -2,7 +2,7 @@
 Django Redator
 ==============
 
-*(django-redator is no longer supported!)*
+*(Fork from https://bitbucket.org/semente/django-redator/ where django-redator is no longer supported!)*
 
 **Django Redator** (sic) is a application for the `Django Web
 Framework`_ to help you integrate `Redactor`_, a beautiful and
